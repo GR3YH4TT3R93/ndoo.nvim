@@ -22,7 +22,9 @@ function get_git_remote_names()
   local remotes = {}
   local remote_names = vim.fn.systemlist("git remote")
   for _, remote_name in ipairs(remote_names) do
-    table.insert(remotes, remote_name)
+    if remote_name ~= "" then
+      table.insert(remotes, remote_name)
+    end
   end
   return remotes
 end

@@ -69,7 +69,17 @@ M.generic_table_picker = function(opts)
     finder = telescope_finders.new_table({
       results = opts.results,
       entry_maker = function(entry)
-        -- just to make sure we are not referencing nil
+        -- Handle string entries
+        if type(entry) == "string" then
+          return {
+            value = entry,
+            display = entry,
+            ordinal = entry,
+            previewer_value = entry,
+          }
+        end
+
+        -- Handle object entries
         if opts.previewer_value_key == nil then
           opts.previewer_value_key = opts.entry_maker_value_key
         end
